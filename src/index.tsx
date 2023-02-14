@@ -11,7 +11,7 @@ import './index.scss';
 root.render(
     <React.StrictMode>
         <ConfigProvider theme={{
-            algorithm: theme.defaultAlgorithm,
+            algorithm: theme.darkAlgorithm,
             token: {
                 colorPrimary: '#00b96b',
             },
