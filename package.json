@@ -5,10 +5,10 @@
     "build": "parcel build src/index.html"
   },
   "dependencies": {
-    "@ant-design/charts": "^1.4.2",
-    "@ant-design/icons": "^5.0.1",
     "antd": "^5.2.1",
+    "chart.js": "^4.2.1",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

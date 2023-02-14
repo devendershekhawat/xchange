@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Card, Typography, TableColumnType, Table } from 'antd';
-import { Line } from '@ant-design/charts';
+import { Line } from 'react-chartjs-2';
 import { CurrencyCode } from '../../Models/Currency';
 import { ExchangeRates } from '../../Models/ExchangeRates';
 
@@ -13,36 +13,37 @@ interface CurrencyGraphProps {
 
 function CurrencyGraph({ selectedCurrency, exchangeRates, loading }: CurrencyGraphProps) {
     const [config, setConfig] = useState<{
-        data: Array<{
-            Currency: string;
-            Rate: number;
-        }>;
-        padding: number | 'auto' | number[] | undefined;
-        xField: string;
-        yField: string;
+        labels: Array<string>
+        datasets: Array<{
+            label: string;
+            data: Array<number>;
+        }>
     }>({
-        data: [],
-        padding: 'auto',
-        xField: 'Currency',
-        yField: 'Rate',
+        labels: [],
+        datasets: [{
+            label: 'Exchange Rate',
+            data: [],
+        }],
     });
 
     useEffect(() => {
         if (exchangeRates) {
-            return setConfig((prev) => ({
-                ...prev,
-                data: Object.keys(exchangeRates).map(code => ({
-                    Currency: code,
-                    Rate: exchangeRates[code],
-                })),
-            }));
+            return setConfig({
+                labels: Object.keys(exchangeRates),
+                datasets: [
+                    {
+                        label: 'Exchange Rates',
+                        data: Object.values(exchangeRates),
+                    },
+                ],
+            });
         }
     }, [exchangeRates]);
 
     return (
         <Card>
             <Typography.Title level={4}>Exchange Rates Relative to {selectedCurrency}</Typography.Title>
-            <Line {...config} />
+            <Line data={config} />
         </Card>
     );
 }

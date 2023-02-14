@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CurrencyCode } from '../../Models/Currency';
 import { Card, Space, Input, Select } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { ExchangeRates } from '../../Models/ExchangeRates';
 
 interface CurrencySelectorProps {
@@ -39,8 +38,7 @@ function CurrencySelector({ selectedCurrency, setSelectedCurrency, exchangeRates
                     />
                 </Input.Group>
                 <Space>
-                    <ArrowLeftOutlined />
-                    <ArrowRightOutlined />
+                   ---
                 </Space>
                 <Input.Group compact>
                     <Select style={{ width: '30%'}} value={resultCode} onSelect={setResultCode}>
