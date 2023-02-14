@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { message } from 'antd';
+import { message, Typography } from 'antd';
 
 import { CurrencyCode } from '../Models/Currency';
 import { ExchangeRates } from '../Models/ExchangeRates';
@@ -36,6 +36,7 @@ function App() {
     return (
         <div className='App'>
             <div className='main'>
+                <Typography.Title level={2}>xChange.</Typography.Title>
                 <CurrencySelector
                     exchangeRates={exchangeRates}
                     selectedCurrency={selectedCurrency}
