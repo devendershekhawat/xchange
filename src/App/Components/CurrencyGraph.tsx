@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {Card, Typography, TableColumnType, Table } from 'antd';
-import { Line } from 'react-chartjs-2';
+import {Card, Typography } from 'antd';
 import { CurrencyCode } from '../../Models/Currency';
 import { ExchangeRates } from '../../Models/ExchangeRates';
+import { Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
 
 interface CurrencyGraphProps {
     selectedCurrency: CurrencyCode;
@@ -12,38 +12,26 @@ interface CurrencyGraphProps {
 
 
 function CurrencyGraph({ selectedCurrency, exchangeRates, loading }: CurrencyGraphProps) {
-    const [config, setConfig] = useState<{
-        labels: Array<string>
-        datasets: Array<{
-            label: string;
-            data: Array<number>;
-        }>
-    }>({
-        labels: [],
-        datasets: [{
-            label: 'Exchange Rate',
-            data: [],
-        }],
-    });
+    const [config, setConfig] = useState<Array<{Currency: string; Rate: number }>>([]);
 
     useEffect(() => {
         if (exchangeRates) {
-            return setConfig({
-                labels: Object.keys(exchangeRates),
-                datasets: [
-                    {
-                        label: 'Exchange Rates',
-                        data: Object.values(exchangeRates),
-                    },
-                ],
-            });
+            setConfig(Object.keys(exchangeRates).map(code => ({
+                Currency: code,
+                Rate: exchangeRates[code],
+            })));
         }
     }, [exchangeRates]);
 
     return (
         <Card>
             <Typography.Title level={4}>Exchange Rates Relative to {selectedCurrency}</Typography.Title>
-            <Line data={config} />
+            <LineChart width={600} height={500} data={config}>
+                <Tooltip />
+                <Line type="monotone" dataKey="Rate" stroke='#8884d8' />
+                <XAxis dataKey="Currency"></XAxis>
+                <YAxis></YAxis>
+            </LineChart>
         </Card>
     );
 }
