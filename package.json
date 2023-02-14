@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "start": "parcel src/index.html --open",
-    "build": "rimraf dist && parcel build src/index.html"
+    "build": "rimraf dist && parcel build --no-source-maps src/index.html"
   },
   "dependencies": {
     "antd": "^5.2.1",
